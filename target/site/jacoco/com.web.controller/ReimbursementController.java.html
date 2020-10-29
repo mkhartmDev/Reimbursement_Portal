@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReimbursementController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">EmployeeReimburseM</a> &gt; <a href="index.source.html" class="el_package">com.web.controller</a> &gt; <span class="el_source">ReimbursementController.java</span></div><h1>ReimbursementController.java</h1><pre class="source lang-java linenums">package com.web.controller;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import com.web.dao.ReimbursementDao;
+import com.web.model.Reimburse;
+import com.web.model.User;
+import com.web.service.ReimbursementService;
+import com.web.service.UserService;
+
+public class ReimbursementController {
+	private ReimbursementService rs;
+	SessionController ses;
+	static ReimbursementDao dao;
+
+	public ReimbursementController(ReimbursementService us) {
+<span class="nc" id="L20">		super();</span>
+<span class="nc" id="L21">		this.rs = rs;</span>
+<span class="nc" id="L22">	}</span>
+
+	public ReimbursementController() {
+<span class="nc" id="L25">		this(new ReimbursementService());</span>
+<span class="nc" id="L26">	}</span>
+	
+	public List&lt;Reimburse&gt; findAll() {
+<span class="nc" id="L29">		return rs.findAll();</span>
+	}
+	
+	public List&lt;Reimburse&gt; findAllByName(String name) {
+<span class="nc" id="L33">		return rs.findAllByName(name);</span>
+	}
+	
+	public String addNew(HttpServletRequest req)
+	{
+<span class="nc" id="L38">		ses = new SessionController();</span>
+<span class="nc" id="L39">		dao = new ReimbursementDao();</span>
+<span class="nc" id="L40">		String test = req.getParameter(&quot;amount&quot;);</span>
+<span class="nc" id="L41">		System.out.println(test);</span>
+<span class="nc" id="L42">		double amount = Double.parseDouble(test);</span>
+<span class="nc" id="L43">		BigDecimal amount2 = BigDecimal.valueOf(amount);</span>
+		
+<span class="nc" id="L45">		String desc = req.getParameter(&quot;description&quot;);</span>
+<span class="nc" id="L46">		int userint = ses.getSessionUser(req).getUserId();</span>
+<span class="nc" id="L47">		int reqd = Integer.parseInt(req.getParameter(&quot;r_type&quot;));</span>
+<span class="nc" id="L48">		int insert = dao.create(new Reimburse(amount2, desc, userint, reqd));</span>
+		
+<span class="nc bnc" id="L50" title="All 2 branches missed.">		if(insert == 1)</span>
+<span class="nc" id="L51">			return &quot;html/user.html&quot;;</span>
+		else
+<span class="nc" id="L53">			return &quot;html/add_new_reimb.html&quot;;</span>
+		
+	}
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

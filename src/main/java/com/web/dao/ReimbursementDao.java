@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.web.model.Reimburse;
@@ -18,8 +19,29 @@ public class ReimbursementDao implements DaoContract<Reimburse, Integer>{
 
 	@Override
 	public List<Reimburse> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Reimburse> reimbs = new LinkedList<Reimburse>();
+		try(Connection conn = ConnectionUtil.getInstance().getConnection())
+		{
+			LocalDateTime temp = null; 
+			PreparedStatement check = conn.prepareStatement("select * from employee_re.reimbursementview2 where ers_users_id=?");
+			ResultSet res = check.executeQuery();
+			while(res.next())
+			{
+				if(res.getTimestamp("reimb_resolved") != null)
+					temp = res.getTimestamp("reimb_resolved").toLocalDateTime();
+					
+				reimbs.add(new Reimburse(res.getInt(1), res.getBigDecimal(2), res.getTimestamp("reimb_submitted").toLocalDateTime(), 
+						temp, 
+						res.getString("reimb_description"), res.getInt("ers_users_id"),
+						res.getString("reimb_status"), res.getString("reimb_type_id")));
+			}
+			res.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return reimbs;
+		
 	}
 	
 	
@@ -52,6 +74,33 @@ public class ReimbursementDao implements DaoContract<Reimburse, Integer>{
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	
+	public List<Reimburse> findByUsrId(Integer i) {
+		List<Reimburse> reimbs = new LinkedList<Reimburse>();
+		try(Connection conn = ConnectionUtil.getInstance().getConnection())
+		{
+			LocalDateTime temp = null; 
+			PreparedStatement check = conn.prepareStatement("select * from employee_re.reimbursementview2 where ers_users_id=?");
+			check.setInt(1, i);
+			ResultSet res = check.executeQuery();
+			while(res.next())
+			{
+				if(res.getTimestamp("reimb_resolved") != null)
+					temp = res.getTimestamp("reimb_resolved").toLocalDateTime();
+					
+				reimbs.add(new Reimburse(res.getInt(1), res.getBigDecimal(2), res.getTimestamp("reimb_submitted").toLocalDateTime(), 
+						temp, 
+						res.getString("reimb_description"), res.getInt("ers_users_id"),
+						res.getString("reimb_status"), res.getString("reimb_type")));
+			}
+			res.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return reimbs;
 	}
 
 	@Override

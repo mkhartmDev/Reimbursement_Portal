@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.web.controller.ReimbursementController;
+import com.web.controller.ReimbursementDataController;
 import com.web.controller.UserController;
 
 public class RequestForwarder {
@@ -34,7 +35,12 @@ public class RequestForwarder {
 	}
 	
 	public void data(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		//switch(req.getRequestURI()) {
+		System.out.println("fdfd");
+		switch(req.getRequestURI()) {
+		case "/EmployeeReimburseM/viewreimb.json":
+			new ReimbursementDataController().findAllById(req, res);
+			
+		}
 		//	break;
 	}
 }

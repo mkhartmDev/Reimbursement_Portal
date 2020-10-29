@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReimbursementDao.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">EmployeeReimburseM</a> &gt; <a href="index.source.html" class="el_package">com.web.dao</a> &gt; <span class="el_source">ReimbursementDao.java</span></div><h1>ReimbursementDao.java</h1><pre class="source lang-java linenums">package com.web.dao;
+
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
+
+import com.web.model.Reimburse;
+import com.web.model.User;
+import com.web.util.ConnectionUtil;
+
+<span class="nc" id="L17">public class ReimbursementDao implements DaoContract&lt;Reimburse, Integer&gt;{</span>
+
+	@Override
+	public List&lt;Reimburse&gt; findAll() {
+		// TODO Auto-generated method stub
+<span class="nc" id="L22">		return null;</span>
+	}
+	
+	
+	public List&lt;Reimburse&gt; findAllByName(String name) {
+		// TODO Auto-generated method stub
+<span class="nc" id="L28">		return null;</span>
+	}
+
+	@Override
+	public Reimburse findById(Integer i) {
+<span class="nc" id="L33">		try(Connection conn = ConnectionUtil.getInstance().getConnection())</span>
+		{
+<span class="nc" id="L35">			LocalDateTime temp = null; </span>
+<span class="nc" id="L36">			PreparedStatement check = conn.prepareStatement(&quot;select * from employee_re.reimbursementview2 where reimb_id=?&quot;);</span>
+<span class="nc" id="L37">			check.setInt(1, i);</span>
+<span class="nc" id="L38">			ResultSet res = check.executeQuery();</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">			if(res.next())</span>
+			{
+<span class="nc bnc" id="L41" title="All 2 branches missed.">				if(res.getTimestamp(&quot;reimb_resolved&quot;) != null)</span>
+<span class="nc" id="L42">					temp = res.getTimestamp(&quot;reimb_resolved&quot;).toLocalDateTime();</span>
+					
+<span class="nc" id="L44">				return new Reimburse(res.getInt(1), res.getBigDecimal(2), res.getTimestamp(&quot;reimb_submitted&quot;).toLocalDateTime(), </span>
+						temp, 
+<span class="nc" id="L46">						res.getString(&quot;reimb_description&quot;), res.getInt(&quot;ers_users_id&quot;),</span>
+<span class="nc" id="L47">						res.getInt(&quot;reimb_status_id&quot;), res.getInt(&quot;reimb_type_id&quot;));</span>
+			}
+			
+<span class="nc" id="L50">			conn.close();</span>
+<span class="nc" id="L51">		} catch (SQLException e) {</span>
+<span class="nc" id="L52">			e.printStackTrace();</span>
+<span class="nc" id="L53">		}</span>
+<span class="nc" id="L54">		return null;</span>
+	}
+
+	@Override
+	public int update(Reimburse t) {
+		// TODO Auto-generated method stub
+<span class="nc" id="L60">		return 0;</span>
+	}
+
+	@Override
+	public int create(Reimburse t) {
+<span class="nc" id="L65">		try(Connection conn = ConnectionUtil.getInstance().getConnection())</span>
+		{
+<span class="nc" id="L67">			Date date = new Date();</span>
+<span class="nc" id="L68">			PreparedStatement add = conn.prepareStatement(&quot;insert into employee_re.ers_reimbursement (reimb_amount, &quot;</span>
+					+ &quot; reimb_submitted, reimb_description, reimb_author, reimb_status_id, reimb_type_id) &quot;
+					+ &quot;values (?, ?, ?, ?, ?, ?);&quot;);
+<span class="nc" id="L71">			add.setDouble(1, Double.parseDouble(String.format(&quot;%.2f&quot;, t.getAmount())));</span>
+<span class="nc" id="L72">			add.setTimestamp(2, new Timestamp(date.getTime()));</span>
+<span class="nc" id="L73">			add.setString(3, t.getDesc());</span>
+<span class="nc" id="L74">			add.setInt(4, t.getAuthor());</span>
+<span class="nc" id="L75">			add.setInt(5, 3);</span>
+<span class="nc" id="L76">			add.setInt(6, t.getType());</span>
+<span class="nc" id="L77">			add.execute();</span>
+			
+<span class="nc" id="L79">			add.close();</span>
+<span class="nc" id="L80">		} catch (SQLException e) {</span>
+<span class="nc" id="L81">			e.printStackTrace();</span>
+<span class="nc" id="L82">		}</span>
+<span class="nc" id="L83">		return 1;</span>
+	}
+
+	@Override
+	public int delete(Integer i) {
+		// TODO Auto-generated method stub
+<span class="nc" id="L89">		return 0;</span>
+	}
+
+	@Override
+	public Reimburse findByUsername(String name) {
+<span class="nc" id="L94">		try(Connection conn = ConnectionUtil.getInstance().getConnection())</span>
+		{
+<span class="nc" id="L96">			LocalDateTime temp = null; </span>
+<span class="nc" id="L97">			PreparedStatement check = conn.prepareStatement(&quot;select * from employee_re.reimbursementview2 where ers_username=?&quot;);</span>
+<span class="nc" id="L98">			check.setString(1, name);</span>
+<span class="nc" id="L99">			ResultSet res = check.executeQuery();</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">			if(res.next())</span>
+			{
+<span class="nc bnc" id="L102" title="All 2 branches missed.">				if(res.getTimestamp(&quot;reimb_resolved&quot;) != null)</span>
+<span class="nc" id="L103">					temp = res.getTimestamp(&quot;reimb_resolved&quot;).toLocalDateTime();</span>
+					
+<span class="nc" id="L105">				return new Reimburse(res.getInt(1), res.getBigDecimal(2), res.getTimestamp(&quot;reimb_submitted&quot;).toLocalDateTime(), </span>
+						temp, 
+<span class="nc" id="L107">						res.getString(&quot;reimb_description&quot;), res.getInt(&quot;ers_users_id&quot;),</span>
+<span class="nc" id="L108">						res.getInt(&quot;reimb_status_id&quot;), res.getInt(&quot;reimb_type_id&quot;));</span>
+			}
+			
+<span class="nc" id="L111">			conn.close();</span>
+<span class="nc" id="L112">		} catch (SQLException e) {</span>
+<span class="nc" id="L113">			e.printStackTrace();</span>
+<span class="nc" id="L114">		}</span>
+<span class="nc" id="L115">		return null;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

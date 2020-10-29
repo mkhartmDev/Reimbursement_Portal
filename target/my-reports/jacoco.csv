@@ -1,0 +1,14 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+EmployeeReimburseM,com.web.util,ConnectionUtil,3,44,1,1,2,14,1,3,0,3
+EmployeeReimburseM,com.web.dao,UserDao,123,59,4,2,29,13,8,3,6,2
+EmployeeReimburseM,com.web.dao,ReimbursementDao,210,0,8,0,52,0,12,0,8,0
+EmployeeReimburseM,com.web.controller,driver,9,0,0,0,3,0,3,0,3,0
+EmployeeReimburseM,com.web.controller,SessionController,21,0,0,0,7,0,4,0,4,0
+EmployeeReimburseM,com.web.controller,ReimbursementController,76,0,2,0,20,0,6,0,5,0
+EmployeeReimburseM,com.web.controller,UserController,47,0,2,0,14,0,4,0,3,0
+EmployeeReimburseM,com.web.service,ReimbursementService,27,0,0,0,8,0,4,0,4,0
+EmployeeReimburseM,com.web.service,UserService,37,0,0,0,10,0,6,0,6,0
+EmployeeReimburseM,com.web.servlet,ViewServlet,36,0,0,0,9,0,3,0,3,0
+EmployeeReimburseM,com.web.servlet,RequestForwarder,44,0,5,0,11,0,7,0,3,0
+EmployeeReimburseM,com.web.model,Reimburse,152,0,0,0,44,0,21,0,21,0
+EmployeeReimburseM,com.web.model,User,94,24,0,0,24,9,16,1,16,1

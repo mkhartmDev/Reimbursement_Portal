@@ -27,6 +27,10 @@ public class ReimbursementService {
 		return dao.findAll();
 	}
 	
+	 public List<Reimburse> findAllById(int id){
+		 return dao.findByUsrId(id);
+		 
+	 }
 	
 
 }
