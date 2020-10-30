@@ -8,7 +8,7 @@ function renderTable(reimbs) {
     const statustd = document.createElement("td");
     const typeid = document.createElement("td");
     
-    amounttd.innerText = item.amount;
+    amounttd.innerText = "$" + item.amount;
     submittedtd.innerText = item.submitted.month + "/" + item.submitted.dayOfMonth + "/" + item.submitted.year;
     if(item.resolved != null)
     {resolvedtd.innerText = item.resolved.month + "/" + item.resolved.dayOfMonth + "/" + item.resolved.year;}
@@ -30,6 +30,8 @@ async function asyncFetch(url, expression) {
   expression(json);
 }
 
+
+
 asyncFetch("http://localhost:8080/EmployeeReimburseM/viewreimb.json", renderTable);
 
 
@@ -38,26 +40,3 @@ asyncFetch("http://localhost:8080/EmployeeReimburseM/viewreimb.json", renderTabl
 
 
 
-
-/*
-
-async function addMonster() {
-  const monster = {
-    name: document.getElementById("monName").value,
-    type: {
-      type: document.getElementById("monType").value,
-      furry: document.getElementById("monFur").value,
-      paws: document.getElementById("monPaws").value,
-    },
-  };
-  const fetched = await fetch("http://localhost:8080/HallowsMonsters/monster.json", {
-    method: "post",
-    body: JSON.stringify(monster),
-  });
-  const json = await fetched.text();
-  const rows = document.getElementById('hallowsTableBody').innerHTML='';
-  asyncFetch("http://localhost:8080/HallowsMonsters/all.json", renderTable);
-}
-
-document.getElementById("monSubmit").addEventListener("click", addMonster);
-*/

@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.web.controller.ReimbursementController;
 import com.web.controller.ReimbursementDataController;
+import com.web.controller.SessionController;
 import com.web.controller.UserController;
 
 public class RequestForwarder {
+	SessionController ses;
 
 	
 	public String routes(HttpServletRequest req) {
@@ -26,10 +28,16 @@ public class RequestForwarder {
 		case "/EmployeeReimburseM/addreimb.page":
 			return "html/add_new_reimb.html";
 			
+		case "/EmployeeReimburseM/landing.page":
+			return "html/landing.html";
+			
 		case "/EmployeeReimburseM/post_re.page":
 			return new ReimbursementController().addNew(req);
+			
+		case "/EmployeeReimburseM/user.page":
+			return "html/user.html";
+			
 		default: 
-			System.out.println("dsdasd");
 			return "html/landing.html";
 		}
 	}
@@ -39,6 +47,16 @@ public class RequestForwarder {
 		switch(req.getRequestURI()) {
 		case "/EmployeeReimburseM/viewreimb.json":
 			new ReimbursementDataController().findAllById(req, res);
+			break;
+		case "/EmployeeReimburseM/man_reimb.json":
+			new ReimbursementDataController().findAlPending(req, res);
+			break;
+		case "/EmployeeReimburseM/deny.json":
+			new ReimbursementDataController().DeleteReimb(req, res);
+			break;
+		case "/EmployeeReimburseM/approve.json":
+			new ReimbursementDataController().ApproveReimb(req, res);
+			break;
 			
 		}
 		//	break;

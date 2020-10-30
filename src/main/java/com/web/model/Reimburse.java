@@ -75,6 +75,14 @@ public class Reimburse {
 		this.type = type;
 	}
 	
+	public Reimburse(int reimb_id) {
+		super();
+		this.reimb_id = reimb_id;
+	}
+	
+	public Reimburse() {
+	}
+	
 	public Reimburse(int reimb_id, BigDecimal amount, LocalDateTime submitted, LocalDateTime resolved, String desc, String author_s, String status_s, String type_s, String fname, String lname) {
 		super();
 		this.reimb_id = reimb_id;

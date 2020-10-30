@@ -31,6 +31,23 @@ public class ReimbursementService {
 		 return dao.findByUsrId(id);
 		 
 	 }
+	 
+	 public List<Reimburse> findAllByStatus(String s)
+	 {
+		 return dao.findAllByStatus(s);
+	 }
+	 
+	 public int delete(int i) {
+			return dao.delete(i);
+		}
+	 
+	 public int deny(int i) {
+			return dao.deny(i);
+		}
+	 
+	 public int approve(int i) {
+			return dao.approve(i);
+		}
 	
 
 }

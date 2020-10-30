@@ -134,8 +134,7 @@ public class ReimbursementDao implements DaoContract<Reimburse, Integer>{
 
 	@Override
 	public int delete(Integer i) {
-		// TODO Auto-generated method stub
-		return 0;
+		return 1;
 	}
 
 	@Override
@@ -153,8 +152,8 @@ public class ReimbursementDao implements DaoContract<Reimburse, Integer>{
 					
 				return new Reimburse(res.getInt(1), res.getBigDecimal(2), res.getTimestamp("reimb_submitted").toLocalDateTime(), 
 						temp, 
-						res.getString("reimb_description"), res.getInt("ers_users_id"),
-						res.getInt("reimb_status_id"), res.getInt("reimb_type_id"));
+						res.getString("reimb_description"), res.getString("ers_username"),
+						res.getString("reimb_status"), res.getString("reimb_type"), res.getString("user_first_name"), res.getString("user_last_name"));
 			}
 			
 			conn.close();
@@ -162,6 +161,70 @@ public class ReimbursementDao implements DaoContract<Reimburse, Integer>{
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	
+	public int deny(int i) {
+		try(Connection conn = ConnectionUtil.getInstance().getConnection())
+		{
+			Date date = new Date();
+			PreparedStatement remo = conn.prepareStatement("update employee_re.ers_reimbursement set reimb_status_id=?, reimb_resolved=? where reimb_id=?");
+			remo.setInt(1,2);
+			remo.setTimestamp(2, new Timestamp(date.getTime()));
+			remo.setInt(3,i);
+			remo.execute();
+			
+			remo.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 1;
+	}
+	
+	public List<Reimburse> findAllByStatus(String status)
+	{
+		List<Reimburse> reimbs = new LinkedList<Reimburse>();
+		try(Connection conn = ConnectionUtil.getInstance().getConnection())
+		{
+			LocalDateTime temp = null; 
+			PreparedStatement check = conn.prepareStatement("select * from employee_re.reimbursementview2 where reimb_status=?");
+			check.setString(1, status);
+			ResultSet res = check.executeQuery();
+			while(res.next())
+			{
+				if(res.getTimestamp("reimb_resolved") != null)
+					temp = res.getTimestamp("reimb_resolved").toLocalDateTime();
+					
+				reimbs.add(new Reimburse(res.getInt(1), res.getBigDecimal(2), res.getTimestamp("reimb_submitted").toLocalDateTime(), 
+						temp, 
+						res.getString("reimb_description"), res.getString("ers_username"),
+						res.getString("reimb_status"), res.getString("reimb_type"), res.getString("user_first_name"), res.getString("user_last_name")));
+			}
+			res.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return reimbs;
+	}
+	
+	public int approve(Integer i) {
+		try(Connection conn = ConnectionUtil.getInstance().getConnection())
+		{
+			Date date = new Date();
+			PreparedStatement remo = conn.prepareStatement("update employee_re.ers_reimbursement set reimb_status_id=?, reimb_resolved=? where reimb_id=?");
+			remo.setInt(1,1);
+			remo.setTimestamp(2, new Timestamp(date.getTime()));
+			remo.setInt(3,i);
+			remo.execute();
+			
+			remo.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 1;
 	}
 
 }

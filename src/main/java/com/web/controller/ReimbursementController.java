@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
+
 import com.web.dao.ReimbursementDao;
 import com.web.model.Reimburse;
 import com.web.model.User;
@@ -15,6 +17,7 @@ public class ReimbursementController {
 	private ReimbursementService rs;
 	SessionController ses;
 	static ReimbursementDao dao;
+	private static final Logger log = Logger.getLogger(ReimbursementController.class);
 
 	public ReimbursementController(ReimbursementService us) {
 		super();
@@ -46,6 +49,7 @@ public class ReimbursementController {
 		int userint = ses.getSessionUser(req).getUserId();
 		int reqd = Integer.parseInt(req.getParameter("r_type"));
 		int insert = dao.create(new Reimburse(amount2, desc, userint, reqd));
+		log.info("New User Created: " + userint);
 		
 		if(insert == 1)
 			return "html/user.html";

@@ -36,7 +36,10 @@ public class UserController {
 			}
 			else
 			{
-				//ret_uri = "html/user.html";
+				sesh = new SessionController();
+				sesh.setSession(req, u);
+				System.out.println(sesh.getSessionUser(req).getFirstName());
+				ret_uri = "html/manager.html";
 			}
 		} 
 		return ret_uri;
