@@ -13,94 +13,167 @@ public class Reimburse {
 	private int author;
 	private int status;
 	private int type;
+	private String author_s;
+	private String type_s;
+	private String status_s;
+	private String fname;
+	private String lname;
 	
 	
-	@Override
-	public String toString() {
-<span class="nc" id="L20">		return &quot;Reimburse [reimb_id=&quot; + reimb_id + &quot;, amount=&quot; + amount + &quot;, submitted=&quot; + submitted + &quot;, resolved=&quot;</span>
-				+ resolved + &quot;, desc=&quot; + desc + &quot;, author=&quot; + author + &quot;, status=&quot; + status + &quot;, type=&quot; + type + &quot;]&quot;;
+	
+	
+	public String getAuthor_s() {
+<span class="fc" id="L26">		return author_s;</span>
 	}
-	
+
+	public void setAuthor_s(String author_s) {
+<span class="fc" id="L30">		this.author_s = author_s;</span>
+<span class="fc" id="L31">	}</span>
+
+	public String getType_s() {
+<span class="fc" id="L34">		return type_s;</span>
+	}
+
+	public void setType_s(String type_s) {
+<span class="fc" id="L38">		this.type_s = type_s;</span>
+<span class="fc" id="L39">	}</span>
+
+	public String getStatus_s() {
+<span class="fc" id="L42">		return status_s;</span>
+	}
+
+	public void setStatus_s(String status_s) {
+<span class="fc" id="L46">		this.status_s = status_s;</span>
+<span class="fc" id="L47">	}</span>
+
+	public String getFname() {
+<span class="fc" id="L50">		return fname;</span>
+	}
+
+	public void setFname(String fname) {
+<span class="fc" id="L54">		this.fname = fname;</span>
+<span class="fc" id="L55">	}</span>
+
+	public String getLname() {
+<span class="fc" id="L58">		return lname;</span>
+	}
+
+	public void setLname(String lname) {
+<span class="fc" id="L62">		this.lname = lname;</span>
+<span class="fc" id="L63">	}</span>
+
 	public Reimburse(int reimb_id, BigDecimal amount, LocalDateTime submitted, LocalDateTime resolved, String desc, int author, int status, int type) {
-<span class="nc" id="L25">		super();</span>
-<span class="nc" id="L26">		this.reimb_id = reimb_id;</span>
-<span class="nc" id="L27">		this.amount = amount;</span>
-<span class="nc" id="L28">		this.submitted = submitted;</span>
-<span class="nc" id="L29">		this.resolved = resolved;</span>
-<span class="nc" id="L30">		this.desc = desc;</span>
+<span class="fc" id="L66">		super();</span>
+<span class="fc" id="L67">		this.reimb_id = reimb_id;</span>
+<span class="fc" id="L68">		this.amount = amount;</span>
+<span class="fc" id="L69">		this.submitted = submitted;</span>
+<span class="fc" id="L70">		this.resolved = resolved;</span>
+<span class="fc" id="L71">		this.desc = desc;</span>
 		// this.rec_pic = rec_pic;
-<span class="nc" id="L32">		this.author = author;</span>
-<span class="nc" id="L33">		this.status = status;</span>
-<span class="nc" id="L34">		this.type = type;</span>
-<span class="nc" id="L35">	}</span>
+<span class="fc" id="L73">		this.author = author;</span>
+<span class="fc" id="L74">		this.status = status;</span>
+<span class="fc" id="L75">		this.type = type;</span>
+<span class="fc" id="L76">	}</span>
+	
+	public Reimburse(int reimb_id) {
+<span class="nc" id="L79">		super();</span>
+<span class="nc" id="L80">		this.reimb_id = reimb_id;</span>
+<span class="nc" id="L81">	}</span>
+	
+<span class="fc" id="L83">	public Reimburse() {</span>
+<span class="fc" id="L84">	}</span>
+	
+	public Reimburse(int reimb_id, BigDecimal amount, LocalDateTime submitted, LocalDateTime resolved, String desc, String author_s, String status_s, String type_s, String fname, String lname) {
+<span class="fc" id="L87">		super();</span>
+<span class="fc" id="L88">		this.reimb_id = reimb_id;</span>
+<span class="fc" id="L89">		this.amount = amount;</span>
+<span class="fc" id="L90">		this.submitted = submitted;</span>
+<span class="fc" id="L91">		this.resolved = resolved;</span>
+<span class="fc" id="L92">		this.desc = desc;</span>
+		// this.rec_pic = rec_pic;
+<span class="fc" id="L94">		this.author_s = author_s;</span>
+<span class="fc" id="L95">		this.status_s = status_s;</span>
+<span class="fc" id="L96">		this.type_s = type_s;</span>
+<span class="fc" id="L97">		this.fname = fname;</span>
+<span class="fc" id="L98">		this.lname= lname;</span>
+<span class="fc" id="L99">	}</span>
+	
+	public Reimburse(int reimb_id, BigDecimal amount, LocalDateTime submitted, LocalDateTime resolved, String desc, int id, String status_s, String type_s) {
+<span class="fc" id="L102">		super();</span>
+<span class="fc" id="L103">		this.reimb_id = reimb_id;</span>
+<span class="fc" id="L104">		this.amount = amount;</span>
+<span class="fc" id="L105">		this.submitted = submitted;</span>
+<span class="fc" id="L106">		this.resolved = resolved;</span>
+<span class="fc" id="L107">		this.desc = desc;</span>
+		// this.rec_pic = rec_pic;
+<span class="fc" id="L109">		this.author = id;</span>
+<span class="fc" id="L110">		this.status_s = status_s;</span>
+<span class="fc" id="L111">		this.type_s = type_s;</span>
+<span class="fc" id="L112">	}</span>
 	
 	public Reimburse(BigDecimal amount, String desc, int author, int type) {
-<span class="nc" id="L38">		super();</span>
-<span class="nc" id="L39">		this.amount = amount;</span>
-<span class="nc" id="L40">		this.desc = desc;</span>
-<span class="nc" id="L41">		this.author = author;</span>
-<span class="nc" id="L42">		this.type = type;</span>
-<span class="nc" id="L43">	}</span>
+<span class="nc" id="L115">		super();</span>
+<span class="nc" id="L116">		this.amount = amount;</span>
+<span class="nc" id="L117">		this.desc = desc;</span>
+<span class="nc" id="L118">		this.author = author;</span>
+<span class="nc" id="L119">		this.type = type;</span>
+<span class="nc" id="L120">	}</span>
 	
 	
-	
-	
-	
-
 	public int getReimb_id() {
-<span class="nc" id="L51">		return reimb_id;</span>
+<span class="fc" id="L124">		return reimb_id;</span>
 	}
 	public void setReimb_id(int reimb_id) {
-<span class="nc" id="L54">		this.reimb_id = reimb_id;</span>
-<span class="nc" id="L55">	}</span>
+<span class="fc" id="L127">		this.reimb_id = reimb_id;</span>
+<span class="fc" id="L128">	}</span>
 	public BigDecimal getAmount() {
-<span class="nc" id="L57">		return amount;</span>
+<span class="fc" id="L130">		return amount;</span>
 	}
 	public void setAmount(BigDecimal amount) {
-<span class="nc" id="L60">		this.amount = amount;</span>
-<span class="nc" id="L61">	}</span>
+<span class="nc" id="L133">		this.amount = amount;</span>
+<span class="nc" id="L134">	}</span>
 	public LocalDateTime getSubmitted() {
-<span class="nc" id="L63">		return submitted;</span>
+<span class="fc" id="L136">		return submitted;</span>
 	}
 	public void setSubmitted(LocalDateTime submitted) {
-<span class="nc" id="L66">		this.submitted = submitted;</span>
-<span class="nc" id="L67">	}</span>
+<span class="fc" id="L139">		this.submitted = submitted;</span>
+<span class="fc" id="L140">	}</span>
 	public LocalDateTime getResolved() {
-<span class="nc" id="L69">		return resolved;</span>
+<span class="fc" id="L142">		return resolved;</span>
 	}
 	public void setResolved(LocalDateTime resolved) {
-<span class="nc" id="L72">		this.resolved = resolved;</span>
-<span class="nc" id="L73">	}</span>
+<span class="fc" id="L145">		this.resolved = resolved;</span>
+<span class="fc" id="L146">	}</span>
 	public String getDesc() {
-<span class="nc" id="L75">		return desc;</span>
+<span class="fc" id="L148">		return desc;</span>
 	}
 	public void setDesc(String desc) {
-<span class="nc" id="L78">		this.desc = desc;</span>
-<span class="nc" id="L79">	}</span>
+<span class="fc" id="L151">		this.desc = desc;</span>
+<span class="fc" id="L152">	}</span>
 	public byte[] getRec_pic() {
-<span class="nc" id="L81">		return rec_pic;</span>
+<span class="fc" id="L154">		return rec_pic;</span>
 	}
 	public void setRec_pic(byte[] rec_pic) {
-<span class="nc" id="L84">		this.rec_pic = rec_pic;</span>
-<span class="nc" id="L85">	}</span>
+<span class="fc" id="L157">		this.rec_pic = rec_pic;</span>
+<span class="fc" id="L158">	}</span>
 	public int getAuthor() {
-<span class="nc" id="L87">		return author;</span>
+<span class="fc" id="L160">		return author;</span>
 	}
 	public void setAuthor(int author) {
-<span class="nc" id="L90">		this.author = author;</span>
-<span class="nc" id="L91">	}</span>
+<span class="fc" id="L163">		this.author = author;</span>
+<span class="fc" id="L164">	}</span>
 	public int getStatus() {
-<span class="nc" id="L93">		return status;</span>
+<span class="fc" id="L166">		return status;</span>
 	}
 	public void setStatus(int status) {
-<span class="nc" id="L96">		this.status = status;</span>
-<span class="nc" id="L97">	}</span>
+<span class="nc" id="L169">		this.status = status;</span>
+<span class="nc" id="L170">	}</span>
 	public int getType() {
-<span class="nc" id="L99">		return type;</span>
+<span class="fc" id="L172">		return type;</span>
 	}
 	public void setType(int type) {
-<span class="nc" id="L102">		this.type = type;</span>
-<span class="nc" id="L103">	}</span>
+<span class="fc" id="L175">		this.type = type;</span>
+<span class="fc" id="L176">	}</span>
 	
 
 }

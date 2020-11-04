@@ -2,35 +2,39 @@
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.web.model.User;
 import com.web.dao.DaoContract;
 import com.web.dao.UserDao;
 
 public class UserService {
-<span class="nc" id="L10">	private UserDao mdao = new UserDao();</span>
+<span class="fc" id="L12">	private UserDao mdao = new UserDao();</span>
+<span class="fc" id="L13">	private static final Logger log = Logger.getLogger(UserService.class);</span>
 
 	public UserService(UserDao mdao) {
-<span class="nc" id="L13">		super();</span>
-<span class="nc" id="L14">		this.mdao = mdao;</span>
-<span class="nc" id="L15">	}</span>
+<span class="fc" id="L16">		super();</span>
+<span class="fc" id="L17">		this.mdao = mdao;</span>
+<span class="fc" id="L18">	}</span>
 
 	public UserService() {
-<span class="nc" id="L18">		this(new UserDao());</span>
-<span class="nc" id="L19">	}</span>
+<span class="fc" id="L21">		this(new UserDao());</span>
+<span class="fc" id="L22">	}</span>
 	
 	public User findByName(String name) {
-<span class="nc" id="L22">		return mdao.findByUsername(name);</span>
+<span class="nc" id="L25">		return mdao.findByUsername(name);</span>
 	}
 	public User LoginCheck(String name, String pass) {
-<span class="nc" id="L25">		return mdao.LoginCheck(name, pass);</span>
+<span class="nc" id="L28">		return mdao.LoginCheck(name, pass);</span>
 	}
 	
 	public List&lt;User&gt; findAll(){
-<span class="nc" id="L29">		return mdao.findAll();</span>
+<span class="nc" id="L32">		return mdao.findAll();</span>
 	}
 	
 	public int save(User t) {
-<span class="nc" id="L33">		return mdao.create(t);</span>
+<span class="nc" id="L36">		log.info(&quot;New User Created: &quot; + toString());</span>
+<span class="nc" id="L37">		return mdao.create(t);</span>
 	}
 
 }

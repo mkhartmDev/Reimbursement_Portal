@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReimbursementDataController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">EmployeeReimburseM</a> &gt; <a href="index.source.html" class="el_package">com.web.controller</a> &gt; <span class="el_source">ReimbursementDataController.java</span></div><h1>ReimbursementDataController.java</h1><pre class="source lang-java linenums">package com.web.controller;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.web.dao.ReimbursementDao;
+import com.web.model.Reimburse;
+import com.web.service.ReimbursementService;
+
+public class ReimbursementDataController {
+		private ReimbursementService rs;
+		SessionController ses;
+		static ReimbursementDao dao;
+
+		public ReimbursementDataController(ReimbursementService us) {
+<span class="nc" id="L23">			super();</span>
+<span class="nc" id="L24">			this.rs = rs;</span>
+<span class="nc" id="L25">		}</span>
+
+		public ReimbursementDataController() {
+<span class="nc" id="L28">			this(new ReimbursementService());</span>
+<span class="nc" id="L29">		}</span>
+		
+		
+		
+		public void findAllById(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException, IOException {
+<span class="nc" id="L34">			rs = new ReimbursementService();</span>
+<span class="nc" id="L35">			res.setContentType(&quot;text/json&quot;);</span>
+<span class="nc" id="L36">			ses = new SessionController();</span>
+<span class="nc" id="L37">			int id = ses.getSessionUser(req).getUserId();</span>
+<span class="nc" id="L38">			List&lt;Reimburse&gt; list = rs.findAllById(id);</span>
+<span class="nc" id="L39">			res.getWriter().println(new ObjectMapper().writeValueAsString(list));</span>
+<span class="nc" id="L40">		}</span>
+		
+		public void findAlPending(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException, IOException {
+<span class="nc" id="L43">			rs = new ReimbursementService();</span>
+<span class="nc" id="L44">			res.setContentType(&quot;text/json&quot;);</span>
+<span class="nc" id="L45">			ses = new SessionController();</span>
+<span class="nc" id="L46">			List&lt;Reimburse&gt; list = rs.findAllByStatus(&quot;pending&quot;);</span>
+<span class="nc" id="L47">			res.getWriter().println(new ObjectMapper().writeValueAsString(list));</span>
+<span class="nc" id="L48">		}</span>
+		
+		public void DeleteReimb(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException, IOException {
+<span class="nc" id="L51">			rs = new ReimbursementService();</span>
+<span class="nc" id="L52">			res.setContentType(&quot;text/json&quot;);</span>
+			try {
+				//System.out.println(req.getInputStream().read());
+<span class="nc" id="L55">				Reimburse r = new ObjectMapper().readValue(req.getInputStream(), Reimburse.class);</span>
+<span class="nc" id="L56">				System.out.println(r);</span>
+<span class="nc" id="L57">				int result = rs.deny(r.getReimb_id());</span>
+<span class="nc" id="L58">			     System.out.println(r.getReimb_id());</span>
+<span class="nc" id="L59">			} catch (IOException e) {</span>
+<span class="nc" id="L60">				e.printStackTrace();</span>
+<span class="nc" id="L61">				res.getWriter().println(&quot;hghg&quot;);</span>
+<span class="nc" id="L62">			}</span>
+<span class="nc" id="L63">		}</span>
+		
+		public void ApproveReimb(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException, IOException {
+<span class="nc" id="L66">			rs = new ReimbursementService();</span>
+<span class="nc" id="L67">			res.setContentType(&quot;text/json&quot;);</span>
+			try {
+				//System.out.println(req.getInputStream().read());
+<span class="nc" id="L70">				Reimburse r = new ObjectMapper().readValue(req.getInputStream(), Reimburse.class);</span>
+<span class="nc" id="L71">				System.out.println(r);</span>
+<span class="nc" id="L72">				int result = rs.approve(r.getReimb_id());</span>
+<span class="nc" id="L73">			     System.out.println(r.getReimb_id());</span>
+<span class="nc" id="L74">			} catch (IOException e) {</span>
+<span class="nc" id="L75">				e.printStackTrace();</span>
+<span class="nc" id="L76">			}</span>
+<span class="nc" id="L77">		}</span>
+		
+		
+		
+
+
+	}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

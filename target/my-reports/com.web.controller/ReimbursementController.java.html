@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
+
 import com.web.dao.ReimbursementDao;
 import com.web.model.Reimburse;
 import com.web.model.User;
@@ -15,42 +17,44 @@ public class ReimbursementController {
 	private ReimbursementService rs;
 	SessionController ses;
 	static ReimbursementDao dao;
+<span class="nc" id="L20">	private static final Logger log = Logger.getLogger(ReimbursementController.class);</span>
 
 	public ReimbursementController(ReimbursementService us) {
-<span class="nc" id="L20">		super();</span>
-<span class="nc" id="L21">		this.rs = rs;</span>
-<span class="nc" id="L22">	}</span>
+<span class="nc" id="L23">		super();</span>
+<span class="nc" id="L24">		this.rs = rs;</span>
+<span class="nc" id="L25">	}</span>
 
 	public ReimbursementController() {
-<span class="nc" id="L25">		this(new ReimbursementService());</span>
-<span class="nc" id="L26">	}</span>
+<span class="nc" id="L28">		this(new ReimbursementService());</span>
+<span class="nc" id="L29">	}</span>
 	
 	public List&lt;Reimburse&gt; findAll() {
-<span class="nc" id="L29">		return rs.findAll();</span>
+<span class="nc" id="L32">		return rs.findAll();</span>
 	}
 	
 	public List&lt;Reimburse&gt; findAllByName(String name) {
-<span class="nc" id="L33">		return rs.findAllByName(name);</span>
+<span class="nc" id="L36">		return rs.findAllByName(name);</span>
 	}
 	
 	public String addNew(HttpServletRequest req)
 	{
-<span class="nc" id="L38">		ses = new SessionController();</span>
-<span class="nc" id="L39">		dao = new ReimbursementDao();</span>
-<span class="nc" id="L40">		String test = req.getParameter(&quot;amount&quot;);</span>
-<span class="nc" id="L41">		System.out.println(test);</span>
-<span class="nc" id="L42">		double amount = Double.parseDouble(test);</span>
-<span class="nc" id="L43">		BigDecimal amount2 = BigDecimal.valueOf(amount);</span>
+<span class="nc" id="L41">		ses = new SessionController();</span>
+<span class="nc" id="L42">		dao = new ReimbursementDao();</span>
+<span class="nc" id="L43">		String test = req.getParameter(&quot;amount&quot;);</span>
+<span class="nc" id="L44">		System.out.println(test);</span>
+<span class="nc" id="L45">		double amount = Double.parseDouble(test);</span>
+<span class="nc" id="L46">		BigDecimal amount2 = BigDecimal.valueOf(amount);</span>
 		
-<span class="nc" id="L45">		String desc = req.getParameter(&quot;description&quot;);</span>
-<span class="nc" id="L46">		int userint = ses.getSessionUser(req).getUserId();</span>
-<span class="nc" id="L47">		int reqd = Integer.parseInt(req.getParameter(&quot;r_type&quot;));</span>
-<span class="nc" id="L48">		int insert = dao.create(new Reimburse(amount2, desc, userint, reqd));</span>
+<span class="nc" id="L48">		String desc = req.getParameter(&quot;description&quot;);</span>
+<span class="nc" id="L49">		int userint = ses.getSessionUser(req).getUserId();</span>
+<span class="nc" id="L50">		int reqd = Integer.parseInt(req.getParameter(&quot;r_type&quot;));</span>
+<span class="nc" id="L51">		int insert = dao.create(new Reimburse(amount2, desc, userint, reqd));</span>
+<span class="nc" id="L52">		log.info(&quot;New User Created: &quot; + userint);</span>
 		
-<span class="nc bnc" id="L50" title="All 2 branches missed.">		if(insert == 1)</span>
-<span class="nc" id="L51">			return &quot;html/user.html&quot;;</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">		if(insert == 1)</span>
+<span class="nc" id="L55">			return &quot;html/user.html&quot;;</span>
 		else
-<span class="nc" id="L53">			return &quot;html/add_new_reimb.html&quot;;</span>
+<span class="nc" id="L57">			return &quot;html/add_new_reimb.html&quot;;</span>
 		
 	}
 

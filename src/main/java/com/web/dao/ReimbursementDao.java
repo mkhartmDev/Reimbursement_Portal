@@ -23,7 +23,7 @@ public class ReimbursementDao implements DaoContract<Reimburse, Integer>{
 		try(Connection conn = ConnectionUtil.getInstance().getConnection())
 		{
 			LocalDateTime temp = null; 
-			PreparedStatement check = conn.prepareStatement("select * from employee_re.reimbursementview2 where ers_users_id=?");
+			PreparedStatement check = conn.prepareStatement("select * from employee_re.reimbursementview2");
 			ResultSet res = check.executeQuery();
 			while(res.next())
 			{

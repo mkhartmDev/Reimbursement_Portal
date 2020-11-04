@@ -58,14 +58,14 @@ import com.web.util.ConnectionUtil;
 
 	@Override
 	public User findByUsername(String name) {
-<span class="nc" id="L61">		try(Connection conn = ConnectionUtil.getInstance().getConnection())</span>
+<span class="fc" id="L61">		try(Connection conn = ConnectionUtil.getInstance().getConnection())</span>
 		{
-<span class="nc" id="L63">			PreparedStatement check = conn.prepareStatement(&quot;select * from employee_re.ers_users where ers_username=?&quot;);</span>
-<span class="nc" id="L64">			check.setString(1, name);</span>
-<span class="nc" id="L65">			ResultSet res = check.executeQuery();</span>
-<span class="nc bnc" id="L66" title="All 2 branches missed.">			if(res.next())</span>
+<span class="fc" id="L63">			PreparedStatement check = conn.prepareStatement(&quot;select * from employee_re.ers_users where ers_username=?&quot;);</span>
+<span class="fc" id="L64">			check.setString(1, name);</span>
+<span class="fc" id="L65">			ResultSet res = check.executeQuery();</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">			if(res.next())</span>
 			{
-<span class="nc" id="L68">				return new User(res.getInt(1), res.getString(2), res.getString(3), res.getString(4), res.getString(5), res.getString(6), res.getInt(7));</span>
+<span class="fc" id="L68">				return new User(res.getInt(1), res.getString(2), res.getString(3), res.getString(4), res.getString(5), res.getString(6), res.getInt(7));</span>
 			}
 			
 <span class="nc" id="L71">			conn.close();</span>
@@ -76,15 +76,15 @@ import com.web.util.ConnectionUtil;
 	}
 	
 	public User LoginCheck(String name, String password) {
-<span class="nc" id="L79">		try(Connection conn = ConnectionUtil.getInstance().getConnection())</span>
+<span class="fc" id="L79">		try(Connection conn = ConnectionUtil.getInstance().getConnection())</span>
 		{
-<span class="nc" id="L81">			PreparedStatement check = conn.prepareStatement(&quot;select * from employee_re.ers_users where ers_username=? and ers_password=?&quot;);</span>
-<span class="nc" id="L82">			check.setString(1, name);</span>
-<span class="nc" id="L83">			check.setString(2, password);</span>
-<span class="nc" id="L84">			ResultSet res = check.executeQuery();</span>
-<span class="nc bnc" id="L85" title="All 2 branches missed.">			if(res.next())</span>
+<span class="fc" id="L81">			PreparedStatement check = conn.prepareStatement(&quot;select * from employee_re.ers_users where ers_username=? and ers_password=?&quot;);</span>
+<span class="fc" id="L82">			check.setString(1, name);</span>
+<span class="fc" id="L83">			check.setString(2, password);</span>
+<span class="fc" id="L84">			ResultSet res = check.executeQuery();</span>
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">			if(res.next())</span>
 			{
-<span class="nc" id="L87">				return new User(res.getInt(1), res.getString(2), res.getString(3), res.getString(4), res.getString(5), res.getString(6), res.getInt(7));</span>
+<span class="fc" id="L87">				return new User(res.getInt(1), res.getString(2), res.getString(3), res.getString(4), res.getString(5), res.getString(6), res.getInt(7));</span>
 				
 			}
 			

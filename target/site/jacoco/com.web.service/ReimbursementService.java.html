@@ -27,6 +27,27 @@ public class ReimbursementService {
 <span class="nc" id="L27">		return dao.findAll();</span>
 	}
 	
+	 public List&lt;Reimburse&gt; findAllById(int id){
+<span class="nc" id="L31">		 return dao.findByUsrId(id);</span>
+		 
+	 }
+	 
+	 public List&lt;Reimburse&gt; findAllByStatus(String s)
+	 {
+<span class="nc" id="L37">		 return dao.findAllByStatus(s);</span>
+	 }
+	 
+	 public int delete(int i) {
+<span class="nc" id="L41">			return dao.delete(i);</span>
+		}
+	 
+	 public int deny(int i) {
+<span class="nc" id="L45">			return dao.deny(i);</span>
+		}
+	 
+	 public int approve(int i) {
+<span class="nc" id="L49">			return dao.approve(i);</span>
+		}
 	
 
 }

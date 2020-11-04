@@ -6,30 +6,43 @@ import com.web.model.User;
 import com.web.service.UserService;
 
 public class UserController {
-<span class="nc" id="L9">	SessionController sesh = new SessionController();</span>
+<span class="fc" id="L9">	SessionController sesh = new SessionController();</span>
 	
 	private UserService us;
 
 	public UserController(UserService us) {
-<span class="nc" id="L14">		super();</span>
-<span class="nc" id="L15">		this.us = us;</span>
-<span class="nc" id="L16">	}</span>
+<span class="fc" id="L14">		super();</span>
+<span class="fc" id="L15">		this.us = us;</span>
+<span class="fc" id="L16">	}</span>
 
 	public UserController() {
-<span class="nc" id="L19">		this(new UserService());</span>
-<span class="nc" id="L20">	}</span>
+<span class="fc" id="L19">		this(new UserService());</span>
+<span class="fc" id="L20">	}</span>
 	
 	public String login(HttpServletRequest req) {
-<span class="nc" id="L23">		String name = req.getParameter(&quot;uname&quot;);</span>
-<span class="nc" id="L24">		String pass = req.getParameter(&quot;pass&quot;);</span>
-<span class="nc" id="L25">		User u = us.LoginCheck(name, pass);</span>
-<span class="nc bnc" id="L26" title="All 2 branches missed.">		if(u != null) {</span>
-<span class="nc" id="L27">			sesh = new SessionController();</span>
-<span class="nc" id="L28">			sesh.setSession(req, u);</span>
-<span class="nc" id="L29">			return &quot;html/user.html&quot;;</span>
-		} else {
-<span class="nc" id="L31">			return &quot;html/landing.html&quot;;</span>
-		}
+<span class="fc" id="L23">		String ret_uri = &quot;html/landing.html&quot;;</span>
+<span class="nc" id="L24">		String name = req.getParameter(&quot;uname&quot;);</span>
+<span class="nc" id="L25">		String pass = req.getParameter(&quot;pass&quot;);</span>
+<span class="nc" id="L26">		User u = us.LoginCheck(name, pass);</span>
+<span class="nc bnc" id="L27" title="All 2 branches missed.">		if(u != null) </span>
+		{
+<span class="nc bnc" id="L29" title="All 2 branches missed.">			if(u.getUserRoleId() == 1)</span>
+			{
+			// not ideal to use roleid but deadline is tomorrow
+<span class="nc" id="L32">			sesh = new SessionController();</span>
+<span class="nc" id="L33">				sesh.setSession(req, u);</span>
+<span class="nc" id="L34">				System.out.println(sesh.getSessionUser(req).getFirstName());</span>
+<span class="nc" id="L35">				ret_uri = &quot;html/user.html&quot;;</span>
+			}
+			else
+			{
+<span class="nc" id="L39">				sesh = new SessionController();</span>
+<span class="nc" id="L40">				sesh.setSession(req, u);</span>
+<span class="nc" id="L41">				System.out.println(sesh.getSessionUser(req).getFirstName());</span>
+<span class="nc" id="L42">				ret_uri = &quot;html/manager.html&quot;;</span>
+			}
+		} 
+<span class="nc" id="L45">		return ret_uri;</span>
 	}
 
 }
